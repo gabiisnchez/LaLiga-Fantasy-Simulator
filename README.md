@@ -6,11 +6,14 @@ Esta aplicación permite simular temporadas completas de una liga de fútbol, co
 🚀 Funcionalidades Principales
 1. Menú Principal
    
-Al iniciar la aplicación, se presenta una ventana emergente con las siguientes opciones:
-
+  Al iniciar la aplicación, se presenta una ventana emergente con las siguientes opciones:
+  
   Simular Temporada
+  
   Consultar Temporada
+  
   Borrar Datos Simulados
+  
   Salir
 
 3. Simular Temporada
