@@ -4,16 +4,16 @@
   
 🚀 Funcionalidades Principales
 1. Menú Principal
+   
 Al iniciar la aplicación, se presenta una ventana emergente con las siguientes opciones:
-    Simular Temporada
-   
-    Consultar Temporada
-   
-    Borrar Datos Simulados
-   
-    Salir
+
+  Simular Temporada
+  Consultar Temporada
+  Borrar Datos Simulados
+  Salir
 
 3. Simular Temporada
+   
 Al elegir Simular Temporada, el programa:
     Recupera los equipos registrados en la base de datos.
    
