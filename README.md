@@ -1,6 +1,7 @@
 # LaLiga-Fantasy-Simulator
 📊 Simulador de Temporadas de Liga
-  Esta aplicación permite simular temporadas completas de una liga de fútbol, consultar estadísticas, y gestionar datos de temporadas simuladas a través de una interfaz gráfica sencilla e intuitiva.
+
+Esta aplicación permite simular temporadas completas de una liga de fútbol, consultar estadísticas, y gestionar datos de temporadas simuladas a través de una interfaz gráfica sencilla e intuitiva.
   
 🚀 Funcionalidades Principales
 1. Menú Principal
