@@ -15,6 +15,7 @@ Esta aplicación permite simular temporadas completas de una liga de fútbol, co
     Borrar Datos Simulados
   
     Salir
+
    
 
 2. Simular Temporada
@@ -50,6 +51,7 @@ Esta aplicación permite simular temporadas completas de una liga de fútbol, co
       Consultar Clasificación: Ver la tabla de posiciones actualizada por jornada.
    
       Volver al Menú Principal
+
    
 
 3. Consultar Temporadas
@@ -61,6 +63,7 @@ Esta aplicación permite simular temporadas completas de una liga de fútbol, co
         Se solicita seleccionar una temporada específica.
    
         Se habilitan las mismas opciones que tras simular una temporada: consultar resultados, clasificación o volver.
+
    
 
 4. Borrar Datos Simulados
@@ -72,6 +75,7 @@ Esta aplicación permite simular temporadas completas de una liga de fútbol, co
      Borrar todas las temporadas generadas.
    
     En caso de intentar eliminar una temporada inexistente, se mostrará un mensaje de error.
+
    
 
 5. Salir
@@ -79,11 +83,13 @@ Esta aplicación permite simular temporadas completas de una liga de fútbol, co
    Finaliza la ejecución del programa y cierra todas las ventanas activas.
 
 
+
 📝 Notas
 
 Asegúrate de tener cargados los equipos en la base de datos antes de simular una temporada.
 
 Los datos generados se guardan automáticamente y se pueden consultar o eliminar posteriormente.
+
 
 
 📌 Autor
