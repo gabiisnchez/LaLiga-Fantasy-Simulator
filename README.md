@@ -17,6 +17,7 @@ Esta aplicación permite simular temporadas completas de una liga de fútbol, co
     Salir
 
 2. Simular Temporada
+   
    Al elegir Simular Temporada, el programa:
    
      Recupera los equipos registrados en la base de datos.
@@ -50,6 +51,7 @@ Esta aplicación permite simular temporadas completas de una liga de fútbol, co
       Volver al Menú Principal
 
 3. Consultar Temporadas
+   
    Si no existen temporadas simuladas, se muestra una ventana de aviso.
 
    Si hay temporadas guardadas:
@@ -59,6 +61,7 @@ Esta aplicación permite simular temporadas completas de una liga de fútbol, co
         Se habilitan las mismas opciones que tras simular una temporada: consultar resultados, clasificación o volver.
 
 4. Borrar Datos Simulados
+   
    Al seleccionar esta opción, el programa permite:
 
      Borrar una temporada específica (solo si existe).
@@ -68,4 +71,5 @@ Esta aplicación permite simular temporadas completas de una liga de fútbol, co
     En caso de intentar eliminar una temporada inexistente, se mostrará un mensaje de error.
 
 5. Salir
+   
    Finaliza la ejecución del programa y cierra todas las ventanas activas.
