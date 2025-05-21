@@ -18,6 +18,18 @@ public class Equipo {
     	this.nombre = nombre;
         this.valoracion = valoracion;
 	}
+
+    public Equipo (String nombre, float valoracion, int puntos, int PJ, int PG,int PE, int PP, int GF, int GC, int DG){
+        this.nombre = nombre;
+        this.puntos = puntos;
+        this.PJ = PJ;
+        this.PG = PG;
+        this.PE = PE;
+        this.PP = PP;
+        this.GF = GF;
+        this.GC = GC;
+        this.DG = DG;
+    }
     
     //Getters
     public String getNombre() {
@@ -31,15 +43,15 @@ public class Equipo {
     //Metodos
     public void actualizarDatos(int golesAFavor, int golesEnContra){
         PJ++;
-        GF += GF;
-        GC += GC;
+        GF += golesAFavor;
+        GC += golesEnContra;
 
         if(golesAFavor > golesEnContra){
             PG++;
-            puntos =+ 3;
+            puntos += 3;
         } else if (golesAFavor == golesEnContra){
             PE++;
-            puntos =+ 1;
+            puntos += 1;
         } else {
             PP++;
         }

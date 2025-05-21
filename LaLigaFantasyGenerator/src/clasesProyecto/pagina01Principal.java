@@ -58,7 +58,7 @@ public class pagina01Principal extends JFrame {
 		JButton btnNewButton_Simular = new JButton("SIMULAR TEMPORADA");
 		btnNewButton_Simular.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				cargarEquiposDesdeBD();  // Llama a un método que llena el ArrayList
+				cargarEquiposDesdeBD();  // Llama a un metodo que llena el ArrayList
 				simularTemporadaYGuardarPartidos();  // Simular y guardar partidos
 				pagina02Simulacion ventanaSimulacion = new pagina02Simulacion();
 				ventanaSimulacion.setVisible(true);
@@ -110,7 +110,7 @@ public class pagina01Principal extends JFrame {
 		contentPane.add(btnNewButton);
 	}
 	
-	// Método para llenar el ArrayList desde la base de datos
+	// Metodo para llenar el ArrayList desde la base de datos
     public void cargarEquiposDesdeBD() {
     	equiposLaLiga.clear();
         try {
@@ -120,7 +120,7 @@ public class pagina01Principal extends JFrame {
             while (rs.next()) {
                 String nombre = rs.getString("nombre");
                 float valoracion = rs.getFloat("valoración");
-                Equipo equipo = new Equipo (nombre, valoracion);
+                Equipo equipo = new Equipo (nombre, valoracion, 0, 0, 0, 0, 0, 0, 0, 0);
                 equiposLaLiga.add(equipo);              
             }
             rs.close();
@@ -130,12 +130,11 @@ public class pagina01Principal extends JFrame {
             JOptionPane.showMessageDialog(null, "Error al cargar los equipos: " + ex.getMessage());
         }       
     }
-    
+
     public void simularTemporadaYGuardarPartidos() {
-    	int numEquipos = equiposLaLiga.size();
+        int numEquipos = equiposLaLiga.size();
         int numJornadas = (numEquipos - 1) * 2;
 
-        // Obtener la temporada actual o crearla si no existe
         String temporadaActual = obtenerOTomarTemporada();
 
         for (int jornada = 0; jornada < numJornadas; jornada++) {
@@ -158,7 +157,6 @@ public class pagina01Principal extends JFrame {
                 Equipo local = equiposLaLiga.get(localIndex);
                 Equipo visitante = equiposLaLiga.get(visitanteIndex);
 
-                // Simulación de goles con ligera ventaja local
                 float ventajaLocal = local.getValoracion() * 1.2f;
                 int maxGolesLocal = Math.max(1, (int) (ventajaLocal / 10 + 1));
                 int maxGolesVisitante = Math.max(1, (int) (visitante.getValoracion() / 10 + 1));
@@ -168,26 +166,51 @@ public class pagina01Principal extends JFrame {
 
                 System.out.println(local.getNombre() + " " + golesLocal + " - " + golesVisitante + " " + visitante.getNombre());
 
-                // Insertar partido con temporada y jornada
-                String insert = String.format(
-                    "INSERT INTO partidos (nombre_local, nombre_visitante, goles_local, goles_visitante, jornada, id_temporada) " +
-                    "VALUES ('%s', '%s', %d, %d, %d, '%s')",
-                    local.getNombre(), visitante.getNombre(), golesLocal, golesVisitante, numeroJornada, temporadaActual
-                );
+                // Actualizar estadísticas de los equipos en memoria
+                local.actualizarDatos(golesLocal, golesVisitante);
+                local.diferenciaGoles();
 
-                try {
-                    conexion.ejecutarInsertDeleteUpdate(insert);
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                    JOptionPane.showMessageDialog(null, "Error al insertar partido: " + e.getMessage());
-                }
+                visitante.actualizarDatos(golesVisitante, golesLocal);
+                visitante.diferenciaGoles();
+
+            /* // Insertar partido en la BD
+            String insert = String.format(
+                "INSERT INTO partidos (nombre_local, nombre_visitante, goles_local, goles_visitante, jornada, id_temporada) " +
+                "VALUES ('%s', '%s', %d, %d, %d, '%s')",
+                local.getNombre(), visitante.getNombre(), golesLocal, golesVisitante, numeroJornada, temporadaActual
+            );
+
+            try {
+                conexion.ejecutarInsertDeleteUpdate(insert);
+            } catch (SQLException e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(null, "Error al insertar partido: " + e.getMessage());
+            } */
             }
+        }
+
+        // Imprimir resultados solo una vez, después de todas las jornadas
+        System.out.println("\n--- RESULTADOS FINALES DE LA TEMPORADA ---");
+        for (Equipo equipo : equiposLaLiga) {
+            System.out.printf(
+                    "%s -> Puntos: %d, PJ: %d, PG: %d, PE: %d, PP: %d, GF: %d, GC: %d, DF: %d%n",
+                    equipo.getNombre(),
+                    equipo.puntos,
+                    equipo.PJ,
+                    equipo.PG,
+                    equipo.PE,
+                    equipo.PP,
+                    equipo.GF,
+                    equipo.GC,
+                    equipo.DG
+            );
         }
 
         JOptionPane.showMessageDialog(null, "Temporada " + obtenerTemporadaNombre() + " simulada y guardada en la base de datos.");
     }
-    
-    private boolean existeTemporada(String temporada) {
+
+
+    public boolean existeTemporada(String temporada) {
         try {
             ResultSet rs = conexion.ejecutarSelect(
                 String.format("SELECT COUNT(*) AS cantidad FROM temporadas WHERE id_temporada = '%s'", temporada));
@@ -202,7 +225,7 @@ public class pagina01Principal extends JFrame {
         return false;
     }
     
-    private String obtenerOTomarTemporada() {
+    public String obtenerOTomarTemporada() {
         String ultimaTemporada = null;
 
         try {
@@ -236,20 +259,20 @@ public class pagina01Principal extends JFrame {
     }
 
     
-    private String obtenerTemporadaNombre() {
+    public String obtenerTemporadaNombre() {
         int anioActual = Year.now().getValue() % 100; // Ej: 2025 -> 25
         int siguienteAnio = (anioActual + 1) % 100;   // 26
 
         return String.format("%02d/%02d", anioActual, siguienteAnio); // "25/26"
     }
 
-    private String calcularPrimeraTemporadaDesdeAnioActual() {
+    public String calcularPrimeraTemporadaDesdeAnioActual() {
         int anioActual = Year.now().getValue() % 100; // Ej: 2025 -> 25
         int siguienteAnio = (anioActual + 1) % 100;
         return String.format("%02d/%02d", anioActual, siguienteAnio);
     }
 
-    private String calcularSiguienteTemporada(String ultimaTemporada) {
+    public String calcularSiguienteTemporada(String ultimaTemporada) {
         String[] partes = ultimaTemporada.split("/");
         int anioInicio = Integer.parseInt(partes[0]);
         int anioFin = Integer.parseInt(partes[1]);
@@ -259,6 +282,4 @@ public class pagina01Principal extends JFrame {
 
         return String.format("%02d/%02d", nuevoInicio, nuevoFin);
     }
-    
- 
 }
