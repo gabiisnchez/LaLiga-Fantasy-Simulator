@@ -20,6 +20,7 @@ public class pagina03Consulta_Temporada extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel pagina03Consulta_Temporada;
 	private JTextField textField_TemporadaAConsultar;
+	private ConexionMySQL conexion;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -82,7 +83,7 @@ public class pagina03Consulta_Temporada extends JFrame {
 		JButton btnVolver_03ConsultaTemporada = new JButton("Volver");
 		btnVolver_03ConsultaTemporada.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				pagina01Principal ventanaPrincipal = new pagina01Principal();
+				pagina01Principal ventanaPrincipal = new pagina01Principal(conexion);
 				ventanaPrincipal.setVisible(true);
 				dispose();
 			}

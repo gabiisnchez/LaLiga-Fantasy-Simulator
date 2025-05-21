@@ -18,6 +18,7 @@ public class pagina02Simulacion extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel pagina02Simulacion;
+	private ConexionMySQL conexion;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -86,7 +87,7 @@ public class pagina02Simulacion extends JFrame {
 		btnVolver_02Simulacion.setBounds(10, 227, 62, 23);
 		btnVolver_02Simulacion.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				pagina01Principal ventanaPrincipal = new pagina01Principal();
+				pagina01Principal ventanaPrincipal = new pagina01Principal(conexion);
 				ventanaPrincipal.setVisible(true);
 				dispose();
 			}
