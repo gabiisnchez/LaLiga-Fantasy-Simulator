@@ -27,7 +27,7 @@ CREATE TABLE `equipos` (
   `nombre` varchar(100) NOT NULL,
   `id_escudo` varchar(45) NOT NULL,
   `valoración` float NOT NULL,
-  PRIMARY KEY (`id_equipo`)
+  PRIMARY KEY (`id_equipo`,`nombre`)
 ) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -50,4 +50,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-05-21 10:04:33
+-- Dump completed on 2025-05-21 13:40:06

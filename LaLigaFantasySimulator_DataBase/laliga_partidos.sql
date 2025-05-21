@@ -25,12 +25,15 @@ DROP TABLE IF EXISTS `partidos`;
 CREATE TABLE `partidos` (
   `idpartidos` int NOT NULL AUTO_INCREMENT,
   `id_temporada` int NOT NULL,
-  `id_local` int NOT NULL,
-  `id_visitante` int NOT NULL,
+  `nombre_local` varchar(100) NOT NULL,
+  `nombre_visitante` varchar(100) NOT NULL,
   `goles_local` int NOT NULL,
   `goles_visitante` int NOT NULL,
+  `jornada` varchar(45) NOT NULL,
   PRIMARY KEY (`idpartidos`),
-  KEY `id_temporada_idx` (`id_temporada`)
+  KEY `id_temporada_idx` (`id_temporada`),
+  KEY `nombre_local_idx` (`nombre_local`),
+  KEY `nombre_local_idx1` (`nombre_local`,`nombre_visitante`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -52,4 +55,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-05-21 10:04:33
+-- Dump completed on 2025-05-21 13:40:06
