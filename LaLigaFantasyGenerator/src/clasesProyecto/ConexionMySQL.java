@@ -68,15 +68,6 @@ public class ConexionMySQL {
         }
     }
 
-    public boolean estaConectado() {
-        try {
-            return (connection != null && !connection.isClosed());
-        } catch (SQLException e) {
-            return false;
-        }
-    }
-
-
     /**
      * Cierra la conexión con la base de datos
      *
