@@ -23,7 +23,6 @@ public class pagina01Principal extends JFrame {
     ArrayList<Equipo> equiposLaLiga = new ArrayList<>();
     private ConexionMySQL conexion;
 
-    // Constructor obligatorio con conexión, no permitimos null
     public pagina01Principal(ConexionMySQL conexion) {
         if (conexion == null) {
             throw new IllegalArgumentException("La conexión no puede ser null");
@@ -45,13 +44,26 @@ public class pagina01Principal extends JFrame {
         contentPane.add(btnNewButton_Simular);
         btnNewButton_Simular.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                if (hayTemporadaExistente()) {
+                    int respuesta = JOptionPane.showConfirmDialog(
+                            null,
+                            "Ya existe una temporada simulada. ¿Deseas eliminarla y generar una nueva?",
+                            "Temporada existente",
+                            JOptionPane.YES_NO_OPTION
+                    );
+
+                    if (respuesta == JOptionPane.NO_OPTION) {
+                        return;
+                    }
+
+                    borrarTemporadaExistente();
+                }
+
                 cargarEquiposDesdeBD();
                 simularTemporadaYGuardarPartidos();
 
-                // Abrir la ventana de simulación (si necesita conexión, pásala también)
                 pagina02Simulacion ventanaSimulacion = new pagina02Simulacion(conexion);
                 ventanaSimulacion.setVisible(true);
-
                 dispose();
             }
         });
@@ -64,18 +76,6 @@ public class pagina01Principal extends JFrame {
         Image imagen2 = icono2.getImage().getScaledInstance(lblNewLabel_Foto_01Principal.getWidth(), lblNewLabel_Foto_01Principal.getHeight(), Image.SCALE_SMOOTH);
         ImageIcon iconoAjustado2 = new ImageIcon(imagen2);
         lblNewLabel_Foto_01Principal.setIcon(iconoAjustado2);
-
-        JButton btnNewButton_Consultar = new JButton("CONSULTAR TEMPORADAS");
-        btnNewButton_Consultar.setBounds(136, 193, 163, 23);
-        contentPane.add(btnNewButton_Consultar);
-        btnNewButton_Consultar.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                // Pasa conexion si la ventana la necesita
-                pagina03Consulta_Temporada ventanaConsulta = new pagina03Consulta_Temporada(/* conexion */);
-                ventanaConsulta.setVisible(true);
-                dispose();
-            }
-        });
 
         JButton btnNewButton_Salir = new JButton("SALIR");
         btnNewButton_Salir.setBounds(185, 261, 63, 23);
@@ -91,14 +91,13 @@ public class pagina01Principal extends JFrame {
         contentPane.add(btnNewButton);
         btnNewButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                pagina04Borrar_Datos ventanaBorrar = new pagina04Borrar_Datos(conexion);
+                pagina03Borrar_Datos ventanaBorrar = new pagina03Borrar_Datos(conexion);
                 ventanaBorrar.setVisible(true);
                 dispose();
             }
         });
     }
 
-    // Este es el main, se conecta y pasa la conexión al abrir la ventana principal
     public static void main(String[] args) {
         ConexionMySQL conexion = new ConexionMySQL("root", "1234", "laliga");
         try {
@@ -139,15 +138,42 @@ public class pagina01Principal extends JFrame {
         }
     }
 
+    public void borrarTemporadaExistente() {
+        try {
+            String eliminar = "DELETE FROM partidos";
+            conexion.ejecutarInsertDeleteUpdate(eliminar);
+
+            String reiniciarAutoIncrement = "ALTER TABLE partidos AUTO_INCREMENT = 1";
+            conexion.ejecutarInsertDeleteUpdate(reiniciarAutoIncrement);
+
+            System.out.println("Temporada anterior eliminada y AUTO_INCREMENT reiniciado.");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error al borrar la temporada anterior: " + e.getMessage());
+        }
+    }
+
+    public boolean hayTemporadaExistente() {
+        try {
+            ResultSet rs = conexion.ejecutarSelect("SELECT COUNT(*) AS total FROM partidos");
+            if (rs.next()) {
+                int total = rs.getInt("total");
+                rs.close();
+                return total > 0;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
     public void simularTemporadaYGuardarPartidos() {
         int numEquipos = equiposLaLiga.size();
         int numJornadas = (numEquipos - 1) * 2;
-
-        String temporadaActual = obtenerOTomarTemporada();
+        String temporadaActual = calcularTemporadaDesdeAnioActual();
 
         for (int jornada = 0; jornada < numJornadas; jornada++) {
             int numeroJornada = jornada + 1;
-            System.out.println("\n--- Jornada " + numeroJornada + " | Temporada " + temporadaActual + " ---");
 
             for (int i = 0; i < numEquipos / 2; i++) {
                 int localIndex, visitanteIndex;
@@ -172,12 +198,8 @@ public class pagina01Principal extends JFrame {
                 int golesLocal = (int) (Math.random() * (maxGolesLocal + 1));
                 int golesVisitante = (int) (Math.random() * (maxGolesVisitante + 1));
 
-                System.out.println(local.getNombre() + " " + golesLocal + " - " + golesVisitante + " " + visitante.getNombre());
-
                 local.actualizarDatos(golesLocal, golesVisitante);
-                local.diferenciaGoles();
                 visitante.actualizarDatos(golesVisitante, golesLocal);
-                visitante.diferenciaGoles();
 
                 String insert = String.format(
                         "INSERT INTO partidos (nombre_local, nombre_visitante, goles_local, goles_visitante, jornada, id_temporada) " +
@@ -194,60 +216,12 @@ public class pagina01Principal extends JFrame {
             }
         }
 
-        System.out.println("\n--- RESULTADOS FINALES DE LA TEMPORADA " + temporadaActual + " ---");
-        for (Equipo equipo : equiposLaLiga) {
-            System.out.printf(
-                    "%s -> Puntos: %d, PJ: %d, PG: %d, PE: %d, PP: %d, GF: %d, GC: %d, DF: %d%n",
-                    equipo.getNombre(),
-                    equipo.puntos,
-                    equipo.PJ,
-                    equipo.PG,
-                    equipo.PE,
-                    equipo.PP,
-                    equipo.GF,
-                    equipo.GC,
-                    equipo.DG
-            );
-        }
-
-        JOptionPane.showMessageDialog(null, "Temporada " + temporadaActual + " simulada y guardada en la base de datos.");
+        JOptionPane.showMessageDialog(null, "Temporada " + temporadaActual + " simulada y guardada.");
     }
 
-    public String obtenerOTomarTemporada() {
-        String ultimaTemporada = null;
-
-        try {
-            String consulta = "SELECT id_temporada FROM partidos ORDER BY id DESC LIMIT 1";
-            ResultSet rs = conexion.ejecutarSelect(consulta);
-            if (rs.next()) {
-                ultimaTemporada = rs.getString("id_temporada");
-            }
-            rs.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        if (ultimaTemporada == null) {
-            return calcularPrimeraTemporadaDesdeAnioActual();
-        } else {
-            return calcularSiguienteTemporada(ultimaTemporada);
-        }
-    }
-
-    public String calcularPrimeraTemporadaDesdeAnioActual() {
+    public String calcularTemporadaDesdeAnioActual() {
         int anioActual = Year.now().getValue() % 100;
         int siguienteAnio = (anioActual + 1) % 100;
         return String.format("%02d/%02d", anioActual, siguienteAnio);
-    }
-
-    public String calcularSiguienteTemporada(String ultimaTemporada) {
-        String[] partes = ultimaTemporada.split("/");
-        int anioInicio = Integer.parseInt(partes[0]);
-        int anioFin = Integer.parseInt(partes[1]);
-
-        int nuevoInicio = (anioInicio + 1) % 100;
-        int nuevoFin = (anioFin + 1) % 100;
-
-        return String.format("%02d/%02d", nuevoInicio, nuevoFin);
     }
 }
