@@ -8,16 +8,15 @@ import javax.swing.*;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.Font;
 
 public class pagina03Borrar_Datos extends JFrame {
 
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextField textField_TemporadaAConsultar;
 	private ConexionMySQL conexion;
 
 	public pagina03Borrar_Datos(ConexionMySQL conexion) {
-		this.conexion = conexion;
+		this.setConexion(conexion);
 
 		setTitle("LaLiga Fantasy Simulator");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -28,18 +27,18 @@ public class pagina03Borrar_Datos extends JFrame {
 		setContentPane(contentPane);
 
 		JLabel lblFoto = new JLabel();
-		lblFoto.setBounds(33, 0, 363, 113);
+		lblFoto.setBounds(33, 39, 363, 113);
 		ImageIcon icono = new ImageIcon(getClass().getResource("/images/RGB_Logotipo_LALIGA_color_positivevg.png"));
 		Image imagen = icono.getImage().getScaledInstance(lblFoto.getWidth(), lblFoto.getHeight(), Image.SCALE_SMOOTH);
 		lblFoto.setIcon(new ImageIcon(imagen));
 		contentPane.add(lblFoto);
 
 		JButton btnBorrarTodas = new JButton("BORRAR TEMPORADA GENERADA");
-		btnBorrarTodas.setBounds(101, 202, 212, 23);
+		btnBorrarTodas.setBounds(70, 163, 284, 23);
 		contentPane.add(btnBorrarTodas);
 
 		JButton btnVolver = new JButton("Volver");
-		btnVolver.setBounds(10, 227, 68, 23);
+		btnVolver.setBounds(151, 198, 121, 23);
 		contentPane.add(btnVolver);
 
 		// --- Acción del botón BORRAR TODAS ---
@@ -90,5 +89,13 @@ public class pagina03Borrar_Datos extends JFrame {
 				e.printStackTrace();
 			}
 		});
+	}
+
+	public ConexionMySQL getConexion() {
+		return conexion;
+	}
+
+	public void setConexion(ConexionMySQL conexion) {
+		this.conexion = conexion;
 	}
 }
