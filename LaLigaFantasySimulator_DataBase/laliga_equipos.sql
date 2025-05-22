@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 8.0.41, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.42, for Win64 (x86_64)
 --
 -- Host: 127.0.0.1    Database: laliga
 -- ------------------------------------------------------
--- Server version	8.0.41
+-- Server version	9.3.0
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -37,7 +37,7 @@ CREATE TABLE `equipos` (
 
 LOCK TABLES `equipos` WRITE;
 /*!40000 ALTER TABLE `equipos` DISABLE KEYS */;
-INSERT INTO `equipos` VALUES (1,'FC BARCELONA','barcelona',5),(2,'REAL MADRID','real_madrid',5),(3,'ATLETICO DE MADRID','atletico',4.5),(4,'ATHLETIC CLUB','athletic',4.5),(5,'VILLAREAL FC','villareal',4),(6,'REAL BETIS','betis',4),(7,'RC CELTA','celta',3.5),(8,'RAYO VALLECANO','rayo',3.5),(9,'CA OSASUNA','osasuna',3.5),(10,'RCD MALLORCA','mallorca',3.5),(11,'REAL SOCIEDAD','real_sociedad',4),(12,'VALENCIA FC','valencia',4),(13,'GETAFE FC','getafe',3.5),(14,'DEPORTIVO ALAVES','alaves',3),(15,'GIRONA FC','girona',3.5),(16,'SEVILLA FC','sevilla ',2),(17,'RCD ESPANYOL DE BARCELONA','espanyol',3.5),(18,'CD LEGANES','leganes',3),(19,'UD LAS PALMAS','las_palmas',3),(20,'REAL VALLADOLID CF','valladolid',3);
+INSERT INTO `equipos` VALUES (1,'FC BARCELONA','barcelona',5),(2,'REAL MADRID','real_madrid',5),(3,'ATLETICO DE MADRID','atletico',4.5),(4,'ATHLETIC CLUB','athletic',4.5),(5,'VILLAREAL FC','villareal',4),(6,'REAL BETIS','betis',5),(7,'RC CELTA','celta',3.5),(8,'RAYO VALLECANO','rayo',3.5),(9,'CA OSASUNA','osasuna',3.5),(10,'RCD MALLORCA','mallorca',3.5),(11,'REAL SOCIEDAD','real_sociedad',4),(12,'VALENCIA FC','valencia',4),(13,'GETAFE FC','getafe',3.5),(14,'DEPORTIVO ALAVES','alaves',3),(15,'GIRONA FC','girona',3.5),(16,'SEVILLA FC','sevilla ',1),(17,'RCD ESPANYOL','espanyol',3.5),(18,'CD LEGANES','leganes',3),(19,'UD LAS PALMAS','las_palmas',3),(20,'REAL VALLADOLID CF','valladolid',3);
 /*!40000 ALTER TABLE `equipos` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -50,4 +50,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-05-21 13:40:06
+-- Dump completed on 2025-05-22 14:40:48
