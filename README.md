@@ -1,13 +1,16 @@
 # LaLiga-Fantasy-Simulator
 📊 Simulador de Temporadas de Liga
 
-Esta aplicación permite simular temporadas completas de una liga de fútbol, consultar estadísticas, y gestionar datos de temporadas simuladas a través de una interfaz gráfica sencilla e intuitiva.
+Esta aplicación permite simular una temporada completa de LaLiga Española de fútbol, consultar estadísticas, y gestionar loa datos de la temporada simulada a través de una interfaz gráfica sencilla e intuitiva.
+
+
 
 🛠️ Configuración del Proyecto
 
 📌 SGBD Elegido
 
 Se ha utilizado MySQL Workbench 8.0.42 como sistema de gestión de base de datos (SGBD).
+
 
 
 ⚙️ Configuración del entorno
@@ -20,21 +23,21 @@ Se ha utilizado MySQL Workbench 8.0.42 como sistema de gestión de base de datos
 
 2. Configuración de conexión JDBC:
 
-     La conexión se realiza desde la clase ConexionBD.java.
+   La conexión se realiza desde la clase ConexionBD.java.
 
-     Formato de la URL de conexión:
+   Formato de la URL de conexión:
 
        String url = "jdbc:mysql://localhost/<nombre_base_de_datos>?user=<usuario>&password=<contraseña>&useLegacyDatetimeCode=false&serverTimezone=<zona_horaria>";
 
-     Este formato incluye:
+   Este formato incluye:
 
-      Protocolo JDBC: jdbc:mysql://
+       Protocolo JDBC: jdbc:mysql://
 
-      Host: localhost
+       Host: localhost
 
-      Base de datos: /<BD>
+       Base de datos: /<BD>
 
-      Parámetros:
+   Parámetros:
 
         user y password: usuario y contraseña de la base de datos
 
@@ -42,7 +45,7 @@ Se ha utilizado MySQL Workbench 8.0.42 como sistema de gestión de base de datos
 
         serverTimezone=<zona_horaria>: ajusta la zona horaria al sistema local
 
-      Usuario y contraseña deben coincidir con los definidos en la base de datos.
+   Usuario y contraseña deben coincidir con los definidos en la base de datos.
 
    
 
@@ -70,8 +73,6 @@ Se ha utilizado MySQL Workbench 8.0.42 como sistema de gestión de base de datos
     Al iniciar la aplicación, se presenta una ventana emergente con las siguientes opciones:
   
     Simular Temporada
-  
-    Consultar Temporada
   
     Borrar Datos Simulados
   
@@ -115,29 +116,13 @@ Se ha utilizado MySQL Workbench 8.0.42 como sistema de gestión de base de datos
 
    
 
-3. Consultar Temporadas
+3. Borrar Datos Simulados
    
-   Si no existen temporadas simuladas, se muestra una ventana de aviso.
+   Al seleccionar esta opción, el programa permite eliminar todos los registros de laa temporada simulada.
 
-   Si hay temporadas guardadas:
-   
-        Se solicita seleccionar una temporada específica.
-   
-        Se habilitan las mismas opciones que tras simular una temporada: consultar resultados, clasificación o volver.
+   En caso de intentar eliminar una temporada y no haya ninguna generada, se mostrará un mensaje de error.
 
-   
 
-4. Borrar Datos Simulados
-   
-   Al seleccionar esta opción, el programa permite:
-
-     Borrar una temporada específica (solo si existe).
-
-     Borrar todas las temporadas generadas.
-   
-    En caso de intentar eliminar una temporada inexistente, se mostrará un mensaje de error.
-
-   
 
 5. Salir
    
