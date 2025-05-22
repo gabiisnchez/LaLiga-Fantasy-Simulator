@@ -72,7 +72,7 @@ public class pagina03Consulta_Temporada extends JFrame {
 		JButton btnConsultar = new JButton("CONSULTAR");
 		btnConsultar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				pagina02Simulacion ventanaSimulacion = new pagina02Simulacion();
+				pagina02Simulacion ventanaSimulacion = new pagina02Simulacion(conexion);
 				ventanaSimulacion.setVisible(true);
 				dispose();
 			}

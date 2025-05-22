@@ -1,18 +1,15 @@
 package clasesProyecto;
-import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import java.awt.GridBagLayout;
 import java.awt.Image;
-
 import javax.swing.JLabel;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.JButton;
 import javax.swing.ImageIcon;
 
@@ -20,21 +17,13 @@ public class pagina02Simulacion_Clasificacion extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel pagina02Simulacion_clasificacion;
-	
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					pagina02Simulacion_Clasificacion frame = new pagina02Simulacion_Clasificacion();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	private ConexionMySQL conexion;
 
-	public pagina02Simulacion_Clasificacion() {
+	public pagina02Simulacion_Clasificacion(ConexionMySQL conexion) {
+		if (conexion == null) {
+			throw new IllegalArgumentException("La conexión no puede ser null");
+		}
+		this.conexion = conexion;
 		setTitle("LaLiga Fantasy Simulator");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 550, 725);
@@ -53,7 +42,7 @@ public class pagina02Simulacion_Clasificacion extends JFrame {
 		JButton btnNewButton = new JButton("Volver");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				pagina02Simulacion ventanaSimulacion = new pagina02Simulacion();
+				pagina02Simulacion ventanaSimulacion = new pagina02Simulacion(conexion);
 				ventanaSimulacion.setVisible(true);
 				dispose();
 			}

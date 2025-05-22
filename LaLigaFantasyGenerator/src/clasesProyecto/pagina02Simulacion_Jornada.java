@@ -21,21 +21,13 @@ public class pagina02Simulacion_Jornada extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel pagina02Simulacion_Jornada;
+	private ConexionMySQL conexion;
 
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					pagina02Simulacion_Jornada frame = new pagina02Simulacion_Jornada();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	public pagina02Simulacion_Jornada() {
+	public pagina02Simulacion_Jornada(ConexionMySQL conexion) {
+		if (conexion == null) {
+			throw new IllegalArgumentException("La conexión no puede ser null");
+		}
+		this.conexion = conexion;
 		setTitle("LaLiga Fantasy Simulator");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 900, 700);
@@ -61,7 +53,7 @@ public class pagina02Simulacion_Jornada extends JFrame {
 		JButton btnVolver_02SimulacionJornada = new JButton("Volver");
 		btnVolver_02SimulacionJornada.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				pagina02Simulacion ventanaSimulacion = new pagina02Simulacion();
+				pagina02Simulacion ventanaSimulacion = new pagina02Simulacion(conexion);
 				ventanaSimulacion.setVisible(true);
 				dispose();
 			}
@@ -583,5 +575,4 @@ public class pagina02Simulacion_Jornada extends JFrame {
 		gbc_lblEscudo_Visitante10.gridy = 14;
 		pagina02Simulacion_Jornada.add(lblEscudo_Visitante10, gbc_lblEscudo_Visitante10);
 	}
-
 }

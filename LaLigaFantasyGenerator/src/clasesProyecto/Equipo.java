@@ -35,10 +35,10 @@ public class Equipo {
     public String getNombre() {
         return nombre;
     }
-
     public float getValoracion() {
         return valoracion;
     }
+
 
     //Metodos
     public void actualizarDatos(int golesAFavor, int golesEnContra){
