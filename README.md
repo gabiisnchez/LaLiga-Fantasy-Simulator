@@ -1,7 +1,7 @@
 # LaLiga-Fantasy-Simulator
 📊 Simulador de Temporadas de Liga
 
-Esta aplicación permite simular una temporada completa de LaLiga Española de fútbol, consultar estadísticas, y gestionar loa datos de la temporada simulada a través de una interfaz gráfica sencilla e intuitiva.
+Esta aplicación permite simular una temporada completa de LaLiga Española de fútbol, consultar estadísticas, y gestionar los datos de la temporada simulada a través de una interfaz gráfica sencilla e intuitiva.
 
 
 
@@ -73,6 +73,8 @@ Se ha utilizado MySQL Workbench 8.0.42 como sistema de gestión de base de datos
     Al iniciar la aplicación, se presenta una ventana emergente con las siguientes opciones:
   
     Simular Temporada
+
+    Ver Temporada
   
     Borrar Datos Simulados
   
@@ -81,7 +83,7 @@ Se ha utilizado MySQL Workbench 8.0.42 como sistema de gestión de base de datos
 
 
 2. Simular Temporada
-   
+    
    Al elegir Simular Temporada, el programa:
    
      Recupera los equipos registrados en la base de datos.
@@ -113,10 +115,24 @@ Se ha utilizado MySQL Workbench 8.0.42 como sistema de gestión de base de datos
       Consultar Clasificación: Ver la tabla de posiciones actualizada por jornada.
    
       Volver al Menú Principal
-
    
 
-3. Borrar Datos Simulados
+
+3. Ver Temporada
+
+    Al elegir Ver Temporada, el programa enseña una ventana con tres opciones:
+
+      Consultar Resultados: Navegar jornada por jornada.
+   
+      Consultar Clasificación: Ver la tabla de posiciones actualizada por jornada.
+   
+      Volver al Menú Principal
+
+   En caso de que no haya ninguna temporada simulada, saltará una ventana de error.
+
+  
+
+4. Borrar Datos Simulados
    
    Al seleccionar esta opción, el programa permite eliminar todos los registros de laa temporada simulada.
 
