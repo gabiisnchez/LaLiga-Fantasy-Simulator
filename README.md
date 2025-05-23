@@ -148,9 +148,7 @@ Se ha utilizado MySQL Workbench 8.0.42 como sistema de gestión de base de datos
 
 📝 Notas
 
-Asegúrate de tener bien generada la base de datos ejecutando el archivo LaLigaFantasyGenerator_DataBase.sql dentro de nuestro SGBD.
-
-Asegúrate de tener cargados los equipos en la base de datos ejecutando el archivo laliga_equipos dentro de nuestro SGBD antes de simular una temporada.
+Asegúrate de tener bien generada y rellena la base de datos ejecutando el archivo LaLigaFantasyGenerator_DataBase.sql dentro de nuestro SGBD antes de simular una temporada.
 
 Los datos generados se guardan automáticamente y se pueden consultar o eliminar posteriormente.
 
