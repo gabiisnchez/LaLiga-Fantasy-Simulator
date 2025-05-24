@@ -191,4 +191,8 @@ public class Equipo {
     public void diferenciaGoles() {
         DG = GF - GC;
     }
+
+    public void sumarPuntos(int i) {
+        puntos += i;
+    }
 }
