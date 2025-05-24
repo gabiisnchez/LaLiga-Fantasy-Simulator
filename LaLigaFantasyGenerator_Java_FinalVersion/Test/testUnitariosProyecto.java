@@ -6,22 +6,37 @@ import java.time.Year;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Clase de pruebas unitarias para verificar el correcto funcionamiento
+ * de la clase {@link Equipo} y otros métodos auxiliares del proyecto.
+ * <p>
+ * Utiliza JUnit 5 para ejecutar los tests.
+ */
 public class testUnitariosProyecto {
 
     private Equipo equipo1;
     private Equipo equipo2;
 
+    /**
+     * Método que se ejecuta antes de cada test. Inicializa dos equipos de prueba.
+     */
     @BeforeEach
     public void setUp() {
         equipo1 = new Equipo("FC Barcelona", 5, 0, 0, 0, 0, 0, 0, 0, 0);
         equipo2 = new Equipo("Real Betis", 4.5f, 0, 0, 0, 0, 0, 0, 0, 0);
     }
 
+    /**
+     * Verifica que el nombre del equipo sea el esperado.
+     */
     @Test
     public void testGetNombre() {
         assertEquals("FC Barcelona", equipo1.getNombre());
     }
 
+    /**
+     * Verifica que el método sumarPuntos() acumule correctamente los puntos.
+     */
     @Test
     public void testSumarPuntos() {
         equipo2.sumarPuntos(1);
@@ -30,9 +45,16 @@ public class testUnitariosProyecto {
         assertEquals(7, equipo2.getPuntos());
     }
 
-
-    // Clase ficticia con el metodo a probar (puedes adaptarlo al nombre real)
+    /**
+     * Clase interna de utilidad que simula el cálculo de la temporada
+     * en formato corto desde el año actual.
+     */
     static class Utilidades {
+        /**
+         * Devuelve un string con la temporada en formato "aa/bb" a partir del año actual.
+         *
+         * @return Temporada en formato "aa/bb"
+         */
         public String calcularTemporadaDesdeAnioActual() {
             int anioActual = Year.now().getValue() % 100;
             int siguienteAnio = (anioActual + 1) % 100;
@@ -40,6 +62,9 @@ public class testUnitariosProyecto {
         }
     }
 
+    /**
+     * Verifica que el cálculo de la temporada actual sea correcto.
+     */
     @Test
     public void testCalcularTemporadaDesdeAnioActual() {
         Utilidades util = new Utilidades();
@@ -51,6 +76,9 @@ public class testUnitariosProyecto {
         assertEquals(esperado, util.calcularTemporadaDesdeAnioActual());
     }
 
+    /**
+     * Verifica que al ganar un partido se actualicen correctamente los datos del equipo.
+     */
     @Test
     public void testActualizarDatos_Ganado() {
         equipo1.actualizarDatos(3, 1); // Gana 3-1
@@ -64,6 +92,9 @@ public class testUnitariosProyecto {
         assertEquals(3, equipo1.getPuntos());
     }
 
+    /**
+     * Verifica que al perder un partido se actualicen correctamente los datos del equipo.
+     */
     @Test
     public void testActualizarDatos_Perdido() {
         equipo1.actualizarDatos(0, 2); // Pierde 0-2
@@ -77,6 +108,9 @@ public class testUnitariosProyecto {
         assertEquals(0, equipo1.getPuntos());
     }
 
+    /**
+     * Verifica que al empatar un partido se actualicen correctamente los datos del equipo.
+     */
     @Test
     public void testActualizarDatos_Empatado() {
         equipo2.actualizarDatos(2, 2); // Empata 2-2
