@@ -18,7 +18,7 @@ public class testUnitariosProyecto {
     private Equipo equipo2;
 
     /**
-     * Método que se ejecuta antes de cada test. Inicializa dos equipos de prueba.
+     * Metodo que se ejecuta antes de cada test. Inicializa dos equipos de prueba.
      */
     @BeforeEach
     public void setUp() {
@@ -35,7 +35,7 @@ public class testUnitariosProyecto {
     }
 
     /**
-     * Verifica que el método sumarPuntos() acumule correctamente los puntos.
+     * Verifica que el metodo sumarPuntos() acumule correctamente los puntos.
      */
     @Test
     public void testSumarPuntos() {
